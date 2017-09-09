@@ -1,0 +1,17 @@
+<% provide(:title, "All users") %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+
+  <% @users.each do |user| %>
+    <%= render user %>
+    <% # note, no quotes around user b/c it's the variable, not the partial name %>
+  <% end %>
+
+  <% # note, could also replace that entire @users.each... block with simply: render @users %>
+
+</ul>
+
+<%= will_paginate %>

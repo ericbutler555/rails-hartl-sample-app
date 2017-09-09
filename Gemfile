@@ -31,6 +31,13 @@ gem 'jbuilder', '~> 2.7'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1', '>= 3.1.11'
 
+# seed the site with fake data
+gem 'faker', '~> 1.8', '>= 1.8.4'
+
+# add pagination functionality to lists
+gem 'will_paginate', '~> 3.1', '>= 3.1.6'
+gem 'bootstrap-will_paginate', '~> 1.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
