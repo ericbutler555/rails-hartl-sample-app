@@ -1,12 +1,14 @@
 class User < ApplicationRecord
 
+  has_many :microposts, dependent: :destroy
+
   # make an attribute available to the User model
   # to validate persistent user sessions
   attr_accessor :remember_token, :activation_token, :reset_token
 
   # force stored emails to all-lowercase
   before_save { email.downcase! }
-  
+
   before_create :create_activation_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -62,7 +64,7 @@ class User < ApplicationRecord
 #    update_attribute(:activated, true)
 #    update_attribute(:activated_at, Time.zone.now)
   end
-  
+
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
   end
@@ -85,8 +87,12 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
+
   private
-  
+
     def create_activation_token
       self.activation_token = User.new_token
       self.activation_digest = User.digest(activation_token)

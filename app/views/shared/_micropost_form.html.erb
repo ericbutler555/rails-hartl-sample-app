@@ -1,0 +1,27 @@
+<%= form_for(@micropost) do |f| %>
+
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="field">
+    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+  </div>
+
+  <%= f.submit "Post", class: "btn btn-primary" %>
+
+  <span class="picture">
+    <%= f.file_field :picture, accept: 'image/jpeg, image/gif, image/png' %>
+  </span>
+
+<% end %>
+
+<script>
+  // client-side validation of upload-size limit:
+  $('#micropost_picture').on('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024,
+        $pictureInput = $(this);
+    if (size_in_megabytes > 2) {
+      alert('Maximum file size is 2MB. Please choose a smaller file.');
+      $pictureInput.val(''); // clear the value
+    }
+  });
+</script>
