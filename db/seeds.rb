@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Create an admin user:
 User.create!(
   name: "Example User",
   email: "example@railstutorial.org",
@@ -16,6 +17,7 @@ User.create!(
   activated_at: Time.zone.now
 )
 
+# Create 99 regular users:
 99.times do |n|
   name = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
@@ -30,6 +32,7 @@ User.create!(
   )
 end
 
+# Create 50 microposts for each of the first 6 users:
 users = User.order(:created_at).take(6)
 50.times do
   content = Faker::Lorem.sentence(5)
@@ -37,3 +40,13 @@ users = User.order(:created_at).take(6)
     user.microposts.create!(content: content)
   end
 end
+
+# Create some follower/following relationships:
+users = User.all
+user = users.first
+
+following = users[2..50]
+following.each { |f| user.follow(f) }
+
+followers = users[3..40]
+followers.each { |f| f.follow(user) }

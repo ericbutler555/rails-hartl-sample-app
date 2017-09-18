@@ -1,6 +1,28 @@
 class User < ApplicationRecord
 
+  # Track all the posts this user has:
+
   has_many :microposts, dependent: :destroy
+
+  # Track how many users this user is following:
+
+  # set a has_many relationship with the follower_id field in the Relationship model/db table:
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
+
+  # set a has_many relationship with the followed_id field in the Relationship model/db table (nicknamed "active_relationships" in the has_many block above):
+  has_many :following, through: :active_relationships, source: :followed
+
+  # Inverse: track how many followers a user has:
+
+  # set a has_many relationship with the followed_id field in the Relationship model/db table:
+  has_many :passive_relationships, class_name: "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent: :destroy
+
+  # set a has_many relationship with the follower_id field in the Relationship model/db table (nicknamed "passive_relationships" in the has_many block above):
+  has_many :followers, through: :passive_relationships, source: :follower
 
   # make an attribute available to the User model
   # to validate persistent user sessions
@@ -89,6 +111,18 @@ class User < ApplicationRecord
 
   def feed
     Micropost.where("user_id = ?", id)
+  end
+
+  def follow(other_user)
+    following << other_user
+  end
+
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
   end
 
   private

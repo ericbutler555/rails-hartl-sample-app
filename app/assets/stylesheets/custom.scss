@@ -79,18 +79,18 @@ aside {
   section {
     padding: 10px 0;
     margin-top: 20px;
-    
+
     &:first-child {
       border: 0;
       padding-top: 0;
     }
-    
+
     span {
       display: block;
       margin-bottom: 3px;
       line-height: 1;
     }
-    
+
     h1 {
       font-size: 1.4em;
       text-align: left;
@@ -112,6 +112,49 @@ aside {
 
 .gravatar_edit {
   margin-top: 15px;
+}
+
+.stats {
+  overflow: auto;
+  padding: 0;
+
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $gray-lighter;
+    color: gray;
+
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+
+  .gravatar {
+    margin: 1px;
+  }
+
+  a {
+    padding: 0; // overrides .stats a
+  }
+}
+
+.users.follow {
+  padding: 0; // overrides .stats a
 }
 
 // footer
@@ -168,7 +211,7 @@ input {
 }
 
 .checkbox {
-  
+
   span {
     margin-left: 20px;
     font-weight: normal;
@@ -177,7 +220,7 @@ input {
 
 #error_explanation {
   color: red;
-  
+
   ul {
     margin: 0 0 30px 0;
   }
@@ -185,7 +228,7 @@ input {
 
 .field_with_errors {
   @extend .has-error;
-  
+
   .form-control {
     color: $state-danger-text;
   }
@@ -201,7 +244,7 @@ input {
 .users {
   list-style: none;
   margin: 0;
-  
+
   li {
     overflow: auto;
     padding: 10px 0;
@@ -214,33 +257,33 @@ input {
 .microposts {
   list-style: none;
   padding: 0;
-  
+
   li {
     padding: 10px 0;
     border-top: 1px solid #e8e8e8;
   }
-  
+
   .user {
     margin-top: 5px;
     padding-top: 0;
   }
-  
+
   .content {
     display: block;
     margin-left: 60px;
-    
+
     img {
       display: block;
       padding: 5px 0;
     }
   } // content
-  
+
   .timestamp {
     color: $gray-light; // from bootstrap
     display: block;
     margin-left: 60px;
   }
-  
+
   .gravatar {
     float: left;
     margin-right: 10px;
@@ -249,7 +292,7 @@ input {
 } // microposts
 
 aside {
-  
+
   textarea {
     height: 100px;
     margin-bottom: 5px;
